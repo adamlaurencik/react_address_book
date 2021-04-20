@@ -9,7 +9,7 @@ import useFooterStyles from "./footer-styles";
 export default function Footer() {
   const classes = useFooterStyles();
   return (
-    <AppBar position="static" color="primary">
+    <AppBar position="static" color="primary" component="footer">
       <Container maxWidth="md">
         <Toolbar className={classes.root}>
           <Typography variant="body1" color="inherit">
