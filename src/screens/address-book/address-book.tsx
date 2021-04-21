@@ -1,24 +1,24 @@
+import { Grid } from "@material-ui/core";
 import useAddressBook from "./address-book-hook";
 import ContactTable from "./components/contact-table";
 import SearchInput from "./components/search-input";
+import { AddressBookContext } from "./address-book-context";
+import ContactModal from "./components/contact-modal";
 
 export default function AddressBookScreen() {
-  const {
-    handleLoadUsers,
-    users,
-    hasNextPage,
-    filterQuery,
-    setFilterQuery,
-  } = useAddressBook();
+  const contextData = useAddressBook();
 
   return (
-    <>
-      <SearchInput query={filterQuery} setQuery={setFilterQuery} />
-      <ContactTable
-        handleLoadUsers={handleLoadUsers}
-        users={users}
-        hasNextPage={hasNextPage}
-      />
-    </>
+    <AddressBookContext.Provider value={contextData}>
+      <Grid container>
+        <Grid xs={12} item>
+          <SearchInput />
+        </Grid>
+        <Grid xs={12} item>
+          <ContactTable />
+        </Grid>
+      </Grid>
+      <ContactModal />
+    </AddressBookContext.Provider>
   );
 }

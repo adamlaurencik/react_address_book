@@ -9,6 +9,7 @@ const MAX_RESULTS = 1000;
 
 export default function useAddressBook() {
   const [users, setUsers] = useState<User[]>([]);
+  const [selectedUser, setSelectedUser] = useState<User>();
   const [filterQuery, setFilterQuery] = useState("");
   const filterActive = filterQuery.length > 0;
   const hasNextPage = !filterActive && users.length < MAX_RESULTS;
@@ -41,11 +42,24 @@ export default function useAddressBook() {
     }
   }, [users, filterQuery, filterActive]);
 
-  return {
-    users: filteredUsers,
-    filterQuery,
-    setFilterQuery,
-    handleLoadUsers,
-    hasNextPage,
-  };
+  return useMemo(
+    () => ({
+      users: filteredUsers,
+      filterQuery,
+      setFilterQuery,
+      handleLoadUsers,
+      hasNextPage,
+      selectedUser,
+      setSelectedUser,
+    }),
+    [
+      filteredUsers,
+      filterQuery,
+      setFilterQuery,
+      handleLoadUsers,
+      hasNextPage,
+      selectedUser,
+      setSelectedUser,
+    ]
+  );
 }

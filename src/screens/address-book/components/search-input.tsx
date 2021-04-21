@@ -1,18 +1,15 @@
 import { InputBase, makeStyles, Paper } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-
-interface SearchInputProps {
-  query: string;
-  setQuery: (val: string) => void;
-}
+import { useContext } from "react";
+import { AddressBookContext } from "../address-book-context";
 
 const useSearchInputStyles = makeStyles({
   paperRoot: {
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
-    width: 400,
-    margin: "8px 0",
+    width: 800,
+    margin: "16px auto",
   },
   input: {
     flex: 1,
@@ -20,13 +17,14 @@ const useSearchInputStyles = makeStyles({
   },
 });
 
-export default function SearchInput({ query, setQuery }: SearchInputProps) {
+export default function SearchInput() {
   const classes = useSearchInputStyles();
+  const { filterQuery, setFilterQuery } = useContext(AddressBookContext);
   return (
     <Paper className={classes.paperRoot}>
       <InputBase
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        value={filterQuery}
+        onChange={(e) => setFilterQuery(e.target.value)}
         className={classes.input}
         placeholder="Search For contacts"
         inputProps={{ "aria-label": "search address book" }}

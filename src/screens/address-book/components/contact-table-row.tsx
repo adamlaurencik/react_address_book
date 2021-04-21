@@ -1,8 +1,10 @@
-import { Avatar, TableCell, TableRow } from "@material-ui/core";
+import { Avatar, Box, Button, TableCell, TableRow } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import User from "model/user";
 import useAddressBookStyles from "../address-book-styles";
 import useWindowSize from "hooks/screen-size-hook";
+import { AddressBookContext } from "../address-book-context";
+import { useContext } from "react";
 
 interface ContactTableRowProps {
   user?: User;
@@ -27,11 +29,6 @@ function SkeletonTableRow() {
     <TableRow component="div" className={classes.tableRow}>
       <TableCell component="div" className={classes.tableCell}>
         <Skeleton variant="circle" width="40px" height="40px" />
-      </TableCell>
-      <TableCell component="div" className={classes.tableCell}>
-        <Skeleton width="150px" />
-      </TableCell>
-      <TableCell component="div" className={classes.tableCell}>
         <Skeleton width="150px" />
       </TableCell>
       <TableCell component="div" className={classes.tableCell}>
@@ -46,22 +43,32 @@ function SkeletonTableRow() {
 
 function DesktopContactTableRow({ user }: Required<ContactTableRowProps>) {
   const classes = useAddressBookStyles();
+  const { setSelectedUser } = useContext(AddressBookContext);
   return (
     <TableRow component="div" className={classes.tableRow}>
       <TableCell component="div" className={classes.tableCell}>
         <Avatar src={user.picture.thumbnail} />
-      </TableCell>
-      <TableCell component="div" className={classes.tableCell}>
-        {user.name.last}
-      </TableCell>
-      <TableCell component="div" className={classes.tableCell}>
-        {user.name.first}
+        <Box marginLeft="10px">
+          <div>
+            <b>{user.name.first}</b>
+          </div>
+          <div>{user.name.last}</div>
+        </Box>
       </TableCell>
       <TableCell component="div" className={classes.tableCell}>
         {user.email}
       </TableCell>
       <TableCell component="div" className={classes.tableCell}>
         {user.phone}
+      </TableCell>
+      <TableCell component="div" className={classes.tableCell}>
+        <Button
+          onClick={() => setSelectedUser(user)}
+          variant="contained"
+          color="primary"
+        >
+          Detail
+        </Button>
       </TableCell>
     </TableRow>
   );

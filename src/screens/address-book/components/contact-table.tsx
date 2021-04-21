@@ -10,18 +10,13 @@ import {
   TableBody,
 } from "@material-ui/core";
 import ContactTableRow from "./contact-table-row";
+import { useContext } from "react";
+import { AddressBookContext } from "../address-book-context";
 
-interface ContactTableProps {
-  users: User[];
-  handleLoadUsers: (startIndex: number) => Promise<void>;
-  hasNextPage: boolean;
-}
-
-export default function ContactTable({
-  handleLoadUsers,
-  users,
-  hasNextPage,
-}: ContactTableProps) {
+export default function ContactTable() {
+  const { handleLoadUsers, hasNextPage, users } = useContext(
+    AddressBookContext
+  );
   const classes = useAddressBookStyles();
   return (
     <Paper className={classes.tableRoot}>
@@ -29,19 +24,16 @@ export default function ContactTable({
         <TableHead component="div">
           <TableRow component="div" className={classes.tableRow}>
             <TableCell component="div" className={classes.tableCell}>
-              Avatar
-            </TableCell>
-            <TableCell component="div" className={classes.tableCell}>
-              Surname
-            </TableCell>
-            <TableCell component="div" className={classes.tableCell}>
-              Name
+              Contact
             </TableCell>
             <TableCell component="div" className={classes.tableCell}>
               Email
             </TableCell>
             <TableCell component="div" className={classes.tableCell}>
               Phone
+            </TableCell>
+            <TableCell component="div" className={classes.tableCell}>
+              Detail
             </TableCell>
           </TableRow>
         </TableHead>
@@ -52,7 +44,7 @@ export default function ContactTable({
             loadNextPage={handleLoadUsers}
             renderItem={(user) => <ContactTableRow user={user} />}
             itemHeight={53}
-            scrollHeight={800}
+            scrollHeight={600}
           />
         </TableBody>
       </Table>
