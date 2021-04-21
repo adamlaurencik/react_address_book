@@ -3,6 +3,8 @@ import useEventCallback from "use-event-callback";
 
 import User from "model/user";
 import { loadUsers } from "service/randomuser/randomuser-service";
+import useLocalStorage from "hooks/local-storage-hook";
+import Nationality from "model/nationality";
 
 const BATCH_SIZE = 50;
 const MAX_RESULTS = 1000;
@@ -11,6 +13,8 @@ export default function useAddressBook() {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User>();
   const [filterQuery, setFilterQuery] = useState("");
+  const [nationality] = useLocalStorage("nationality", Nationality.CH);
+
   const filterActive = filterQuery.length > 0;
   const hasNextPage = !filterActive && users.length < MAX_RESULTS;
 
@@ -21,6 +25,7 @@ export default function useAddressBook() {
     }
     try {
       const usersResponse = await loadUsers({
+        nationalityFilter: nationality,
         page,
       });
       const loadedUsers = usersResponse?.results ?? [];
