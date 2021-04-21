@@ -1,3 +1,4 @@
+import Nationality from "./nationality";
 interface User {
   gender: "male" | "female";
   name: {
@@ -22,7 +23,7 @@ interface User {
     medium: string;
     thumbnail: string;
   };
-  nat: string;
+  nat: Nationality;
 }
 
 export default User;

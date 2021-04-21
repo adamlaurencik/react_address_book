@@ -13,12 +13,14 @@ import ContactTableRow from "./contact-table-row";
 
 interface ContactTableProps {
   users: User[];
-  handleLoadUsers: () => Promise<void>;
+  handleLoadUsers: (startIndex: number) => Promise<void>;
+  hasNextPage: boolean;
 }
 
 export default function ContactTable({
   handleLoadUsers,
   users,
+  hasNextPage,
 }: ContactTableProps) {
   const classes = useAddressBookStyles();
   return (
@@ -45,7 +47,7 @@ export default function ContactTable({
         </TableHead>
         <TableBody component="div" className={classes.tableBody}>
           <InfiniteScroll
-            hasNextPage={true}
+            hasNextPage={hasNextPage}
             items={users}
             loadNextPage={handleLoadUsers}
             renderItem={(user) => <ContactTableRow user={user} />}

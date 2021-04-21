@@ -1,3 +1,4 @@
+import Nationality from "model/nationality";
 import User from "model/user";
 
 export interface RandomUserServiceResponse {
@@ -9,6 +10,8 @@ export interface RandomUserServiceResponse {
   error?: string;
 }
 
-export interface RandomUserServiceType {
-  loadUsers: () => Promise<RandomUserServiceResponse>;
+export interface LoadUsersSettings {
+  batchSize?: number;
+  nationalityFilter?: Nationality;
+  page?: number;
 }
