@@ -1,14 +1,24 @@
 import useAddressBook from "./address-book-hook";
 import ContactTable from "./components/contact-table";
+import SearchInput from "./components/search-input";
 
 export default function AddressBookScreen() {
-  const { handleLoadUsers, users, hasNextPage } = useAddressBook();
+  const {
+    handleLoadUsers,
+    users,
+    hasNextPage,
+    filterQuery,
+    setFilterQuery,
+  } = useAddressBook();
 
   return (
-    <ContactTable
-      handleLoadUsers={handleLoadUsers}
-      users={users}
-      hasNextPage={hasNextPage}
-    />
+    <>
+      <SearchInput query={filterQuery} setQuery={setFilterQuery} />
+      <ContactTable
+        handleLoadUsers={handleLoadUsers}
+        users={users}
+        hasNextPage={hasNextPage}
+      />
+    </>
   );
 }

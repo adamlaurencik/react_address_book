@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import useEventCallback from "use-event-callback";
 
 import User from "model/user";
@@ -9,6 +9,9 @@ const MAX_RESULTS = 1000;
 
 export default function useAddressBook() {
   const [users, setUsers] = useState<User[]>([]);
+  const [filterQuery, setFilterQuery] = useState("");
+  const filterActive = filterQuery.length > 0;
+  const hasNextPage = !filterActive && users.length < MAX_RESULTS;
 
   const handleLoadUsers = useEventCallback(async (startIndex: number) => {
     const page = Math.floor(startIndex / BATCH_SIZE);
@@ -26,9 +29,22 @@ export default function useAddressBook() {
     }
   });
 
-  const hasNextPage = users.length < MAX_RESULTS;
+  const filteredUsers = useMemo(() => {
+    if (filterActive) {
+      return users.filter((u) =>
+        `${u.name.first} ${u.name.last}`
+          .toLowerCase()
+          .startsWith(filterQuery.toLowerCase())
+      );
+    } else {
+      return users;
+    }
+  }, [users, filterQuery, filterActive]);
+
   return {
-    users,
+    users: filteredUsers,
+    filterQuery,
+    setFilterQuery,
     handleLoadUsers,
     hasNextPage,
   };

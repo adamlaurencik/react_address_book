@@ -33,7 +33,7 @@ export default function InfiniteScroll<TYPE>({
           onItemsRendered={onItemsRendered}
           ref={ref}
           width="100%"
-          height={scrollHeight}
+          height={Math.min(scrollHeight, itemHeight * itemCount)}
           itemSize={itemHeight}
         >
           {Item}
