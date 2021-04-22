@@ -33,7 +33,11 @@ export default function ContactModal() {
     >
       <DialogTitle id="alert-dialog-slide-title">
         {selectedUser?.name.first} {selectedUser?.name.last}
-        <IconButton size="small" onClick={() => setSelectedUser(undefined)}>
+        <IconButton
+          size="small"
+          onClick={() => setSelectedUser(undefined)}
+          style={{ position: "absolute", right: "8px", top: "8px" }}
+        >
           <CloseIcon />
         </IconButton>
       </DialogTitle>
