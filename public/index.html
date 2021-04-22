@@ -40,5 +40,23 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 </body>
+<script>
+  const resize = () => {
+    if (screen.width < 400) {
+      var viewport = document.querySelector("meta[name=viewport]");
+      viewport.parentNode.removeChild(viewport);
+
+      var newViewport = document.createElement("meta");
+      newViewport.setAttribute("name", "viewport");
+      newViewport.setAttribute(
+        "content",
+        "width=400, maximum-scale=1.0, user-scalable=no"
+      );
+      document.head.appendChild(newViewport);
+    }
+  };
+  resize();
+  window.addEventListener("orientationchange", resize);
+</script>
 
 </html>

@@ -5,15 +5,24 @@ import User from "model/user";
 import { loadUsers } from "service/randomuser/randomuser-service";
 import useLocalStorage from "hooks/local-storage-hook";
 import Nationality from "model/nationality";
+import useWindowSize from "hooks/screen-size-hook";
+import { MOBILE_WIDTH_BREAKPOINT } from "./address-book-styles";
 
 const BATCH_SIZE = 50;
 const MAX_RESULTS = 1000;
+
+type SreenVersion = "sm" | "lg";
 
 export default function useAddressBook() {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User>();
   const [filterQuery, setFilterQuery] = useState("");
   const [nationality] = useLocalStorage("nationality", Nationality.CH);
+  const { width } = useWindowSize();
+  let screenVersion: SreenVersion = "lg";
+  if (width < MOBILE_WIDTH_BREAKPOINT) {
+    screenVersion = "sm";
+  }
 
   const filterActive = filterQuery.length > 0;
   const hasNextPage = !filterActive && users.length < MAX_RESULTS;
@@ -56,6 +65,7 @@ export default function useAddressBook() {
       hasNextPage,
       selectedUser,
       setSelectedUser,
+      screenVersion,
     }),
     [
       filteredUsers,
@@ -65,6 +75,7 @@ export default function useAddressBook() {
       hasNextPage,
       selectedUser,
       setSelectedUser,
+      screenVersion,
     ]
   );
 }

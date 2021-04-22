@@ -6,6 +6,7 @@ import {
   Grid,
   IconButton,
   TextField,
+  Button,
 } from "@material-ui/core";
 import React, { useContext } from "react";
 import { AddressBookContext } from "../address-book-context";
@@ -13,6 +14,8 @@ import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
 import ContactMap from "./contact-map";
 import CloseIcon from "@material-ui/icons/Close";
+import PhoneIcon from "@material-ui/icons/Phone";
+import EmailIcon from "@material-ui/icons/Email";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -43,13 +46,13 @@ export default function ContactModal() {
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={4}>
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
             <Avatar
               src={selectedUser?.picture.large}
-              style={{ width: "150px", height: "150px" }}
+              style={{ width: "150px", height: "150px", margin: "auto" }}
             />
           </Grid>
-          <Grid item xs={9}>
+          <Grid item sm={12} md={9}>
             <Grid container spacing={2} alignItems="center" justify="center">
               <Grid item xs={6}>
                 <ModalTextField
@@ -63,20 +66,53 @@ export default function ContactModal() {
                   value={selectedUser?.name.last}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <ModalTextField label="Email" value={selectedUser?.email} />
               </Grid>
-              <Grid item xs={6}>
-                <ModalTextField
-                  label="Phone number"
-                  value={selectedUser?.phone}
-                />
+              <Grid item xs={12} sm={6}>
+                <ModalTextField label="Phone" value={selectedUser?.phone} />
               </Grid>
               <Grid item xs={12}>
                 <ModalTextField
                   label="Address"
                   value={` ${selectedUser?.location?.street?.number}  ${selectedUser?.location?.street?.name} ${selectedUser?.location?.city}, ${selectedUser?.location?.postcode}`}
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container>
+                  <Grid
+                    item
+                    xs={6}
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <Button
+                      style={{ margin: "auto" }}
+                      startIcon={<PhoneIcon />}
+                      variant="contained"
+                      color="primary"
+                      target="_blank"
+                      href={`tel:${selectedUser?.phone}`}
+                    >
+                      Call
+                    </Button>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={6}
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <Button
+                      style={{ margin: "auto" }}
+                      startIcon={<EmailIcon />}
+                      color="primary"
+                      variant="contained"
+                      target="_blank"
+                      href={`mailto:${selectedUser?.email}`}
+                    >
+                      Mail
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -98,7 +134,7 @@ function ModalTextField({
 }) {
   return (
     <TextField
-      label="Phone number"
+      label={label}
       value={value}
       fullWidth
       variant="outlined"

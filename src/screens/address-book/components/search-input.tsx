@@ -8,8 +8,8 @@ const useSearchInputStyles = makeStyles({
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
-    width: 800,
-    margin: "16px auto",
+
+    margin: "16px 5%",
   },
   input: {
     flex: 1,
@@ -26,7 +26,7 @@ export default function SearchInput() {
         value={filterQuery}
         onChange={(e) => setFilterQuery(e.target.value)}
         className={classes.input}
-        placeholder="Search For contacts"
+        placeholder="Search for contacts"
         inputProps={{ "aria-label": "search address book" }}
       />
       <SearchIcon color="primary" />

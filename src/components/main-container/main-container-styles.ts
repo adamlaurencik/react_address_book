@@ -5,7 +5,6 @@ const useMainContainerStyles = makeStyles((theme: Theme) =>
     mainContainer: {
       // Full screen without Navbar + Footer
       minHeight: "calc(100vh - 48px - 64px)",
-      padding: `${theme.spacing(2)}px 0px`,
     },
   })
 );

@@ -25,4 +25,6 @@ const useAddressBookStyles = makeStyles((theme: Theme) =>
   })
 );
 
+export const MOBILE_WIDTH_BREAKPOINT = 800;
+
 export default useAddressBookStyles;
