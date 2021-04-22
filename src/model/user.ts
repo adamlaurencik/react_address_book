@@ -1,12 +1,12 @@
 import Nationality from "./nationality";
 interface User {
-  gender: "male" | "female";
-  name: {
+  gender?: "male" | "female";
+  name?: {
     title: string;
     first: string;
     last: string;
   };
-  location: {
+  location?: {
     street: {
       number: number;
       name: string;
@@ -19,14 +19,14 @@ interface User {
       longitude: string;
     };
   };
-  email: string;
-  phone: string;
-  picture: {
+  email?: string;
+  phone?: string;
+  picture?: {
     large: string;
     medium: string;
     thumbnail: string;
   };
-  nat: Nationality;
+  nat?: Nationality;
 }
 
 export default User;

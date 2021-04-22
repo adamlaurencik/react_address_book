@@ -5,30 +5,20 @@ import {
   MenuItem,
   Button,
 } from "@material-ui/core";
-import useLocalStorage from "hooks/local-storage-hook";
+
 import Nationality from "model/nationality";
 import ReactCountryFlag from "react-country-flag";
-import { useHistory } from "react-router";
-import useEventCallback from "use-event-callback";
+import useSettings from "./settings-hook";
 import useSettingsStyles from "./settings-styles";
 
 export default function SettingsScreen() {
   const classes = useSettingsStyles();
-  const history = useHistory();
-  const [nationality, setNationality] = useLocalStorage(
-    "nationality",
-    Nationality.CH
-  );
-  const [tourFinished, setTourFinished] = useLocalStorage(
-    "tourFinished",
-    false
-  );
-
-  const handleRestartAppTutorial = useEventCallback(() => {
-    setTourFinished(false);
-    history.push("/");
-  });
-
+  const {
+    handleRestartAppTutorial,
+    nationality,
+    setNationality,
+    tourFinished,
+  } = useSettings();
   return (
     <Box>
       <Typography variant="h4">Settings</Typography>

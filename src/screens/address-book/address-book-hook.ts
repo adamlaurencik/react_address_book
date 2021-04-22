@@ -60,7 +60,7 @@ export default function useAddressBook() {
   const filteredUsers = useMemo(() => {
     if (filterActive) {
       return users.filter((u) =>
-        `${u.name.first} ${u.name.last}`
+        `${u.name?.first} ${u.name?.last}`
           .toLowerCase()
           .startsWith(filterQuery.toLowerCase())
       );

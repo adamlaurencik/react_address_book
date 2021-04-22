@@ -24,8 +24,8 @@ export default function ContactMap({ user }: ContactMapProps) {
   if (!isLoaded) return null;
 
   const location = {
-    lat: parseFloat(user.location.coordinates.latitude),
-    lng: parseFloat(user.location.coordinates.longitude),
+    lat: parseFloat(user.location?.coordinates.latitude ?? "0"),
+    lng: parseFloat(user.location?.coordinates.longitude ?? "0"),
   };
 
   return (
@@ -38,7 +38,7 @@ export default function ContactMap({ user }: ContactMapProps) {
     >
       <Marker
         position={location}
-        title={`${user.name.first} ${user.name.last}`}
+        title={`${user.name?.first} ${user.name?.last}`}
       />
     </GoogleMap>
   );

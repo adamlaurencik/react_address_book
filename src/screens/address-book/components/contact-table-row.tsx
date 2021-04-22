@@ -33,14 +33,14 @@ function DesktopContactTableRow({ user }: ContactTableRowProps) {
     <TableRow component="div" className={classes.tableRow}>
       <TableCell component="div" className={classes.tableCell}>
         {user ? (
-          <Avatar src={user.picture.thumbnail} />
+          <Avatar src={user.picture?.thumbnail} />
         ) : (
           <Skeleton variant="circle" width="40px" height="40px" />
         )}
         <Box marginLeft="10px">
-          <div>{user ? user.name.first : <Skeleton width="80px" />}</div>
+          <div>{user ? user.name?.first : <Skeleton width="80px" />}</div>
           <div>
-            {user ? <b>{user.name.last}</b> : <Skeleton width="120px" />}
+            {user ? <b>{user.name?.last}</b> : <Skeleton width="120px" />}
           </div>
         </Box>
       </TableCell>
@@ -75,14 +75,14 @@ function MobileContactTableRow({ user }: ContactTableRowProps) {
     <TableRow component="div" className={classes.tableRow}>
       <TableCell component="div" className={classes.tableCell}>
         {user ? (
-          <Avatar src={user.picture.thumbnail} />
+          <Avatar src={user.picture?.thumbnail} />
         ) : (
           <Skeleton variant="circle" width="40px" height="40px" />
         )}
         <Box marginLeft="10px" flex={1}>
           {user ? (
             <div>
-              {user.name.first} <b>{user.name.last}</b>
+              {user.name?.first} <b>{user.name?.last}</b>
             </div>
           ) : (
             <Skeleton width="120px" />

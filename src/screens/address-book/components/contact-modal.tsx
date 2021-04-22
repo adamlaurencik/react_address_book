@@ -35,7 +35,7 @@ export default function ContactModal() {
       TransitionComponent={Transition}
     >
       <DialogTitle id="alert-dialog-slide-title">
-        {selectedUser?.name.first} {selectedUser?.name.last}
+        {selectedUser?.name?.first} {selectedUser?.name?.last}
         <IconButton
           size="small"
           onClick={() => setSelectedUser(undefined)}
@@ -48,7 +48,7 @@ export default function ContactModal() {
         <Grid container spacing={4}>
           <Grid item xs={12} md={3}>
             <Avatar
-              src={selectedUser?.picture.large}
+              src={selectedUser?.picture?.large}
               style={{ width: "150px", height: "150px", margin: "auto" }}
             />
           </Grid>
@@ -57,13 +57,13 @@ export default function ContactModal() {
               <Grid item xs={6}>
                 <ModalTextField
                   label="First name"
-                  value={selectedUser?.name.first}
+                  value={selectedUser?.name?.first}
                 />
               </Grid>
               <Grid item xs={6}>
                 <ModalTextField
                   label="Last name"
-                  value={selectedUser?.name.last}
+                  value={selectedUser?.name?.last}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>

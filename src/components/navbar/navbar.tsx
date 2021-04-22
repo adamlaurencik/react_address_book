@@ -19,7 +19,6 @@ export default function Navbar() {
         <Toolbar variant="dense">
           <Box flex={1}>
             <Typography variant="h6">
-              {" "}
               <MuiLink
                 component={Link}
                 to="/"
