@@ -11,6 +11,7 @@ import {
 import ContactTableRow from "./contact-table-row";
 import { useContext } from "react";
 import { AddressBookContext } from "../address-book-context";
+import ContactEmptyRow from "./contact-empty-row";
 
 export default function ContactTable() {
   const { handleLoadUsers, hasNextPage, users, screenVersion } = useContext(
@@ -54,6 +55,7 @@ export default function ContactTable() {
           </TableRow>
         </TableHead>
         <TableBody component="div" className={classes.tableBody}>
+          {users.length === 0 && !hasNextPage && <ContactEmptyRow />}
           <InfiniteScroll
             hasNextPage={hasNextPage}
             items={users}
