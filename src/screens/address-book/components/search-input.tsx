@@ -21,7 +21,7 @@ export default function SearchInput() {
   const classes = useSearchInputStyles();
   const { filterQuery, setFilterQuery } = useContext(AddressBookContext);
   return (
-    <Paper className={classes.paperRoot}>
+    <Paper className={classes.paperRoot} id="search-filter">
       <InputBase
         value={filterQuery}
         onChange={(e) => setFilterQuery(e.target.value)}

@@ -4,6 +4,7 @@ import ContactTable from "./components/contact-table";
 import SearchInput from "./components/search-input";
 import { AddressBookContext } from "./address-book-context";
 import ContactModal from "./components/contact-modal";
+import AppTour from "tour/app-tour";
 
 export default function AddressBookScreen() {
   const contextData = useAddressBook();
@@ -19,6 +20,7 @@ export default function AddressBookScreen() {
         </Grid>
       </Grid>
       <ContactModal />
+      <AppTour />
     </AddressBookContext.Provider>
   );
 }

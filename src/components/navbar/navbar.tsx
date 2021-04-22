@@ -18,13 +18,23 @@ export default function Navbar() {
       <AppBar position="static">
         <Toolbar variant="dense">
           <Box flex={1}>
-            <MuiLink component={Link} to="/" color="inherit" underline="none">
-              <Typography variant="h6">Address Book App</Typography>
-            </MuiLink>
+            <Typography variant="h6">
+              {" "}
+              <MuiLink
+                component={Link}
+                to="/"
+                color="inherit"
+                underline="none"
+                id="home-link"
+              >
+                Address Book App
+              </MuiLink>
+            </Typography>
           </Box>
           <Button
             color="inherit"
             component={Link}
+            id="settings-link"
             to="/settings"
             startIcon={<SettingsIcon />}
           >

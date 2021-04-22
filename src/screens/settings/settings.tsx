@@ -1,24 +1,41 @@
-import { Box, TextField, Typography, MenuItem } from "@material-ui/core";
+import {
+  Box,
+  TextField,
+  Typography,
+  MenuItem,
+  Button,
+} from "@material-ui/core";
 import useLocalStorage from "hooks/local-storage-hook";
 import Nationality from "model/nationality";
 import ReactCountryFlag from "react-country-flag";
+import { useHistory } from "react-router";
+import useEventCallback from "use-event-callback";
 import useSettingsStyles from "./settings-styles";
 
 export default function SettingsScreen() {
+  const classes = useSettingsStyles();
+  const history = useHistory();
   const [nationality, setNationality] = useLocalStorage(
     "nationality",
     Nationality.CH
   );
+  const [tourFinished, setTourFinished] = useLocalStorage(
+    "tourFinished",
+    false
+  );
 
-  const classes = useSettingsStyles();
+  const handleRestartAppTutorial = useEventCallback(() => {
+    setTourFinished(false);
+    history.push("/");
+  });
 
   return (
     <Box>
       <Typography variant="h4">Settings</Typography>
-      <br />
       <TextField
         value={nationality}
         select
+        margin="normal"
         size="small"
         variant="outlined"
         label="Nationality"
@@ -57,6 +74,15 @@ export default function SettingsScreen() {
           Great Britain
         </MenuItem>
       </TextField>
+      <br />
+      <Button
+        variant="outlined"
+        color="primary"
+        disabled={!tourFinished}
+        onClick={handleRestartAppTutorial}
+      >
+        Restart app tutorial
+      </Button>
     </Box>
   );
 }

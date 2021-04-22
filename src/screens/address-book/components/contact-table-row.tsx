@@ -38,9 +38,7 @@ function DesktopContactTableRow({ user }: ContactTableRowProps) {
           <Skeleton variant="circle" width="40px" height="40px" />
         )}
         <Box marginLeft="10px">
-          <div>
-            {user ? <b>{user.name.first}</b> : <Skeleton width="80px" />}
-          </div>
+          <div>{user ? user.name.first : <Skeleton width="80px" />}</div>
           <div>
             {user ? <b>{user.name.last}</b> : <Skeleton width="120px" />}
           </div>

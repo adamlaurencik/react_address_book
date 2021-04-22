@@ -28,7 +28,7 @@ export default function ContactTable() {
   }
   const classes = useAddressBookStyles();
   return (
-    <Paper className={classes.tableRoot}>
+    <Paper className={classes.tableRoot} id="contact-table">
       <Table stickyHeader component="div" size="small">
         <TableHead component="div">
           <TableRow component="div" className={classes.tableRow}>
