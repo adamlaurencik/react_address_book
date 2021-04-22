@@ -1,4 +1,4 @@
-import { Box, Select, Typography } from "@material-ui/core";
+import { Box, TextField, Typography, MenuItem } from "@material-ui/core";
 import useLocalStorage from "hooks/local-storage-hook";
 import Nationality from "model/nationality";
 
@@ -11,16 +11,20 @@ export default function SettingsScreen() {
   return (
     <Box>
       <Typography variant="h4">Settings</Typography>
-      <Select
+      <br />
+      <TextField
         value={nationality}
+        select
+        size="small"
+        variant="outlined"
+        label="Nationality"
         onChange={(e) => setNationality(e.target.value as Nationality)}
       >
-        <option value="">All</option>
-        <option value={Nationality.CH}>Switzerland</option>
-        <option value={Nationality.ES}>Spain</option>
-        <option value={Nationality.FR}>French</option>
-        <option value={Nationality.GB}>Great Britain</option>
-      </Select>
+        <MenuItem value={Nationality.CH}>Switzerland</MenuItem>
+        <MenuItem value={Nationality.ES}>Spain</MenuItem>
+        <MenuItem value={Nationality.FR}>French</MenuItem>
+        <MenuItem value={Nationality.GB}>Great Britain</MenuItem>
+      </TextField>
     </Box>
   );
 }
