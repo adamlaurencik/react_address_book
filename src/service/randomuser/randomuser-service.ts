@@ -21,7 +21,7 @@ export async function loadUsers({
   );
   const data = response.data;
   if (data.error) {
-    //TODO THROW
+    throw new Error(data.error);
   }
   return data;
 }

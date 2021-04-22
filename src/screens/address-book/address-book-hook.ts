@@ -7,6 +7,7 @@ import useLocalStorage from "hooks/local-storage-hook";
 import Nationality from "model/nationality";
 import useWindowSize from "hooks/screen-size-hook";
 import { MOBILE_WIDTH_BREAKPOINT } from "./address-book-styles";
+import { useSnackbar } from "notistack";
 
 const BATCH_SIZE = 50;
 const MAX_RESULTS = 1000;
@@ -18,6 +19,7 @@ export default function useAddressBook() {
   const [selectedUser, setSelectedUser] = useState<User>();
   const [filterQuery, setFilterQuery] = useState("");
   const [nationality] = useLocalStorage("nationality", Nationality.CH);
+  const { enqueueSnackbar } = useSnackbar();
   const { width } = useWindowSize();
   let screenVersion: SreenVersion = "lg";
   if (width < MOBILE_WIDTH_BREAKPOINT) {
@@ -27,22 +29,33 @@ export default function useAddressBook() {
   const filterActive = filterQuery.length > 0;
   const hasNextPage = !filterActive && users.length < MAX_RESULTS;
 
-  const handleLoadUsers = useEventCallback(async (startIndex: number) => {
-    const page = Math.floor(startIndex / BATCH_SIZE);
-    if (page * BATCH_SIZE >= MAX_RESULTS) {
-      return;
+  const handleLoadUsers = useEventCallback(
+    async (startIndex: number, endIndex?: number, attempt = 1) => {
+      const page = Math.floor(startIndex / BATCH_SIZE);
+      if (page * BATCH_SIZE >= MAX_RESULTS) {
+        return;
+      }
+      try {
+        const usersResponse = await loadUsers({
+          nationalityFilter: nationality,
+          page,
+        });
+        const loadedUsers = usersResponse?.results ?? [];
+        setUsers((current) => [...current, ...loadedUsers]);
+      } catch (e) {
+        enqueueSnackbar(
+          `Error loading users, retry in 10 seconds ( attempt ${attempt} )`,
+          {
+            variant: "error",
+          }
+        );
+        setTimeout(
+          () => handleLoadUsers(startIndex, endIndex, attempt + 1),
+          10000
+        );
+      }
     }
-    try {
-      const usersResponse = await loadUsers({
-        nationalityFilter: nationality,
-        page,
-      });
-      const loadedUsers = usersResponse?.results ?? [];
-      setUsers((current) => [...current, ...loadedUsers]);
-    } catch (e) {
-      //TODO ERROR HANDLING
-    }
-  });
+  );
 
   const filteredUsers = useMemo(() => {
     if (filterActive) {
