@@ -17,7 +17,13 @@ const useAddressBookStyles = makeStyles((theme: Theme) =>
       minWidth: "100%",
       width: "100%",
     },
+    tableHead: {
+      background: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+    },
     tableCell: {
+      background: "inherit",
+      color: "inherit",
       display: "flex!important",
       alignItems: "center",
       flex: 1,

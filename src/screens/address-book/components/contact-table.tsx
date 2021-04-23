@@ -12,11 +12,13 @@ import ContactTableRow from "./contact-table-row";
 import { useContext } from "react";
 import { AddressBookContext } from "../address-book-context";
 import ContactEmptyRow from "./contact-empty-row";
+import useWindowSize from "hooks/screen-size-hook";
 
 export default function ContactTable() {
   const { handleLoadUsers, hasNextPage, users, screenVersion } = useContext(
     AddressBookContext
   );
+  const { height } = useWindowSize();
   let itemHeight;
   switch (screenVersion) {
     case "lg":
@@ -27,10 +29,11 @@ export default function ContactTable() {
       break;
   }
   const classes = useAddressBookStyles();
+
   return (
     <Paper className={classes.tableRoot} id="contact-table">
       <Table stickyHeader component="div" size="small">
-        <TableHead component="div">
+        <TableHead component="div" className={classes.tableHead}>
           <TableRow component="div" className={classes.tableRow}>
             <TableCell component="div" className={classes.tableCell}>
               Contact
@@ -61,7 +64,7 @@ export default function ContactTable() {
             loadNextPage={handleLoadUsers}
             renderItem={(user) => <ContactTableRow user={user} />}
             itemHeight={itemHeight}
-            scrollHeight={600}
+            scrollHeight={0.7 * height}
           />
         </TableBody>
       </Table>

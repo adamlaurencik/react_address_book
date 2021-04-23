@@ -66,7 +66,6 @@ export default function AppTour() {
       setTourFinished(true);
     }
   });
-  debugger;
   return (
     <Joyride
       steps={steps}
