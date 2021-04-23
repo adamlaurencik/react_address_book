@@ -10,7 +10,6 @@ import { MOBILE_WIDTH_BREAKPOINT } from "./address-book-styles";
 import { useSnackbar } from "notistack";
 
 const BATCH_SIZE = 50;
-const MAX_RESULTS = 1000;
 
 type SreenVersion = "sm" | "lg";
 
@@ -19,6 +18,7 @@ export default function useAddressBook() {
   const [selectedUser, setSelectedUser] = useState<User>();
   const [filterQuery, setFilterQuery] = useState("");
   const [nationality] = useLocalStorage("nationality", Nationality.CH);
+  const [hasNextPage, setHasNextPage] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
   const { width } = useWindowSize();
   let screenVersion: SreenVersion = "lg";
@@ -27,14 +27,10 @@ export default function useAddressBook() {
   }
 
   const filterActive = filterQuery.length > 0;
-  const hasNextPage = !filterActive && users.length < MAX_RESULTS;
 
   const handleLoadUsers = useEventCallback(
     async (startIndex: number, endIndex?: number, attempt = 1) => {
       const page = Math.floor(startIndex / BATCH_SIZE);
-      if (page * BATCH_SIZE >= MAX_RESULTS) {
-        return;
-      }
       try {
         const usersResponse = await loadUsers({
           nationalityFilter: nationality,
@@ -42,6 +38,9 @@ export default function useAddressBook() {
         });
         const loadedUsers = usersResponse?.results ?? [];
         setUsers((current) => [...current, ...loadedUsers]);
+        if (loadedUsers.length === 0) {
+          setHasNextPage(false);
+        }
       } catch (e) {
         enqueueSnackbar(
           `Error loading users, retry in 10 seconds ( attempt ${attempt} )`,
@@ -75,7 +74,7 @@ export default function useAddressBook() {
       filterQuery,
       setFilterQuery,
       handleLoadUsers,
-      hasNextPage,
+      hasNextPage: !filterActive && hasNextPage,
       selectedUser,
       setSelectedUser,
       screenVersion,
@@ -87,6 +86,7 @@ export default function useAddressBook() {
       handleLoadUsers,
       hasNextPage,
       selectedUser,
+      filterActive,
       setSelectedUser,
       screenVersion,
     ]

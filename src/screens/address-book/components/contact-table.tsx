@@ -39,8 +39,7 @@ export default function ContactTable() {
               <>
                 <TableCell
                   component="div"
-                  className={classes.tableCell}
-                  style={{ flex: 2 }}
+                  className={`${classes.tableCell} ${classes.emailColumn}`}
                 >
                   Email
                 </TableCell>

@@ -87,3 +87,16 @@ it("correctly filters users by name", async () => {
   expect(screen.getAllByText("Test").length).toBeGreaterThan(0);
   expect(screen.getAllByText("TEST").length).toBeGreaterThan(0);
 });
+
+it("shows empty-row message if no results", async () => {
+  mockedUseWindowSize.mockImplementation(() => ({ width: 1024, height: 800 }));
+  mockedUserService.loadUsers.mockResolvedValue({ results: [] });
+
+  render(
+    <SnackbarProvider>
+      <AddressBookScreen />
+    </SnackbarProvider>
+  );
+
+  await waitFor(() => screen.getByTestId("contact-empty-row"));
+});

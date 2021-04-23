@@ -22,6 +22,9 @@ const useAddressBookStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       flex: 1,
     },
+    emailColumn: {
+      flex: 2,
+    },
   })
 );
 

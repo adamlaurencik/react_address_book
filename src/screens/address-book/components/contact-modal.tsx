@@ -7,6 +7,7 @@ import {
   IconButton,
   TextField,
   Button,
+  makeStyles,
 } from "@material-ui/core";
 import React, { useContext } from "react";
 import { AddressBookContext } from "../address-book-context";
@@ -24,8 +25,20 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+const useContactModalStyles = makeStyles({
+  closeIcon: { position: "absolute", right: "8px", top: "8px" },
+  avatar: { width: "150px", height: "150px", margin: "auto" },
+  mapWrapper: { margin: "16px -24px -8px" },
+  buttonWrapper: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
+
 export default function ContactModal() {
   const { selectedUser, setSelectedUser } = useContext(AddressBookContext);
+  const classes = useContactModalStyles();
   return (
     <Dialog
       open={!!selectedUser}
@@ -39,7 +52,7 @@ export default function ContactModal() {
         <IconButton
           size="small"
           onClick={() => setSelectedUser(undefined)}
-          style={{ position: "absolute", right: "8px", top: "8px" }}
+          className={classes.closeIcon}
         >
           <CloseIcon />
         </IconButton>
@@ -49,7 +62,7 @@ export default function ContactModal() {
           <Grid item xs={12} md={3}>
             <Avatar
               src={selectedUser?.picture?.large}
-              style={{ width: "150px", height: "150px", margin: "auto" }}
+              className={classes.avatar}
             />
           </Grid>
           <Grid item sm={12} md={9}>
@@ -80,13 +93,8 @@ export default function ContactModal() {
               </Grid>
               <Grid item xs={12}>
                 <Grid container>
-                  <Grid
-                    item
-                    xs={6}
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
+                  <Grid item xs={6} className={classes.buttonWrapper}>
                     <Button
-                      style={{ margin: "auto" }}
                       startIcon={<PhoneIcon />}
                       variant="contained"
                       color="primary"
@@ -96,13 +104,8 @@ export default function ContactModal() {
                       Call
                     </Button>
                   </Grid>
-                  <Grid
-                    item
-                    xs={6}
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
+                  <Grid item xs={6} className={classes.buttonWrapper}>
                     <Button
-                      style={{ margin: "auto" }}
                       startIcon={<EmailIcon />}
                       color="primary"
                       variant="contained"
@@ -117,7 +120,7 @@ export default function ContactModal() {
             </Grid>
           </Grid>
         </Grid>
-        <div style={{ margin: "16px -24px -8px" }}>
+        <div className={classes.mapWrapper}>
           {selectedUser && <ContactMap user={selectedUser} />}
         </div>
       </DialogContent>

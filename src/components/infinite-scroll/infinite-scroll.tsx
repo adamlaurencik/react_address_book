@@ -14,6 +14,7 @@ export default function InfiniteScroll<TYPE>({
 }: InfiniteScrollProps<TYPE>) {
   const isItemLoaded = (index: number) => !hasNextPage || index < items.length;
   const itemCount = hasNextPage ? items.length + 1 : items.length;
+
   const Item = ({ index, style }: { index: number; style: CSSProperties }) => {
     if (index === itemCount) {
       return null;

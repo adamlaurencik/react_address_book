@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Grid,
-  Button,
-  TableCell,
-  TableRow,
-} from "@material-ui/core";
+import { Avatar, Box, Button, TableCell, TableRow } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import User from "model/user";
 import { AddressBookContext } from "../address-book-context";
@@ -46,8 +39,7 @@ function DesktopContactTableRow({ user }: ContactTableRowProps) {
       </TableCell>
       <TableCell
         component="div"
-        className={classes.tableCell}
-        style={{ flex: 2 }}
+        className={`${classes.tableCell} ${classes.emailColumn}`}
       >
         {user ? user.email : <Skeleton width="150px" />}
       </TableCell>

@@ -8,12 +8,21 @@ import {
 } from "@material-ui/core";
 import { useContext } from "react";
 import { AddressBookContext } from "../address-book-context";
+import useEventCallback from "use-event-callback";
 export default function ContactEmptyRow() {
   const { filterQuery, setFilterQuery } = useContext(AddressBookContext);
   const classes = useAddressBookStyles();
 
+  const clearFilter = useEventCallback(() => {
+    setFilterQuery("");
+  });
+
   return (
-    <TableRow component="div" className={classes.tableRow}>
+    <TableRow
+      component="div"
+      className={classes.tableRow}
+      data-testid="contact-empty-row"
+    >
       <TableCell component="div" className={classes.tableCell}>
         <Box
           flex={1}
@@ -29,7 +38,7 @@ export default function ContactEmptyRow() {
               variant="contained"
               size="small"
               color="primary"
-              onClick={() => setFilterQuery("")}
+              onClick={clearFilter}
             >
               Clear filter
             </Button>
