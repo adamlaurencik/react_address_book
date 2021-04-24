@@ -2,7 +2,13 @@ import { makeStyles } from "@material-ui/core";
 
 const useSettingsStyles = makeStyles({
   countryFlag: {
-    marginRight: 5,
+    margin: "0 4px",
+  },
+  countryChip: {
+    margin: "0 4px",
+  },
+  nationalitiesField: {
+    minWidth: 250,
   },
 });
 

@@ -12,6 +12,6 @@ export interface RandomUserServiceResponse {
 
 export interface LoadUsersSettings {
   batchSize?: number;
-  nationalityFilter?: Nationality;
+  nationalityFilter?: Nationality[];
   page?: number;
 }

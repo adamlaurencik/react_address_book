@@ -4,9 +4,10 @@ import {
   Typography,
   MenuItem,
   Button,
+  Chip,
 } from "@material-ui/core";
 
-import Nationality from "model/nationality";
+import Nationality, { countryNameMap } from "model/nationality";
 import ReactCountryFlag from "react-country-flag";
 import useSettings from "./settings-hook";
 import useSettingsStyles from "./settings-styles";
@@ -15,54 +16,57 @@ export default function SettingsScreen() {
   const classes = useSettingsStyles();
   const {
     handleRestartAppTutorial,
-    nationality,
-    changeNationality,
+    nationalities,
+    setNationalitiesWrapper,
     tourFinished,
   } = useSettings();
   return (
     <Box>
       <Typography variant="h4">Settings</Typography>
       <TextField
-        value={nationality}
+        value={nationalities}
         select
+        className={classes.nationalitiesField}
         margin="normal"
         size="small"
         variant="outlined"
-        label="Nationality"
-        onChange={(e) => changeNationality(e.target.value as Nationality)}
+        label="Nationalities"
+        data-testid="nationality-input"
+        onChange={(e) => setNationalitiesWrapper(e.target.value as any)}
+        SelectProps={{
+          multiple: true,
+          renderValue: (nats) =>
+            (nats as Nationality[]).map((nat) => (
+              <Chip
+                key={nat}
+                className={classes.countryChip}
+                variant="outlined"
+                label={
+                  <>
+                    <ReactCountryFlag
+                      countryCode={nat as Nationality}
+                      svg={true}
+                      className={classes.countryFlag}
+                    />
+                    {countryNameMap[nat]}
+                  </>
+                }
+              />
+            )),
+        }}
       >
-        <MenuItem value={Nationality.CH}>
-          <ReactCountryFlag
-            countryCode={Nationality.CH}
-            svg={true}
-            className={classes.countryFlag}
-          />
-          Switzerland
-        </MenuItem>
-        <MenuItem value={Nationality.ES}>
-          <ReactCountryFlag
-            countryCode={Nationality.ES}
-            svg={true}
-            className={classes.countryFlag}
-          />
-          Spain
-        </MenuItem>
-        <MenuItem value={Nationality.FR}>
-          <ReactCountryFlag
-            countryCode={Nationality.FR}
-            svg={true}
-            className={classes.countryFlag}
-          />
-          French
-        </MenuItem>
-        <MenuItem value={Nationality.GB}>
-          <ReactCountryFlag
-            countryCode={Nationality.GB}
-            svg={true}
-            className={classes.countryFlag}
-          />
-          Great Britain
-        </MenuItem>
+        {[Nationality.CH, Nationality.FR, Nationality.GB, Nationality.ES].map(
+          (nat) => (
+            <MenuItem value={nat} key={nat}>
+              <ReactCountryFlag
+                countryCode={nat}
+                svg={true}
+                className={classes.countryFlag}
+              />
+              {countryNameMap[nat]}
+            </MenuItem>
+          )
+        )}
       </TextField>
       <br />
       <Button

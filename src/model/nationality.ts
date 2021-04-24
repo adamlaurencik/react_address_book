@@ -5,4 +5,11 @@ enum Nationality {
   GB = "GB",
 }
 
+export const countryNameMap = {
+  [Nationality.CH]: "Switzerland",
+  [Nationality.ES]: "Spain",
+  [Nationality.FR]: "France",
+  [Nationality.GB]: "Great Britain",
+};
+
 export default Nationality;

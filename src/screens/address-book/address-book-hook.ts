@@ -17,7 +17,7 @@ export default function useAddressBook() {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User>();
   const [filterQuery, setFilterQuery] = useState("");
-  const [nationality] = useLocalStorage("nationality", Nationality.CH);
+  const [nationalities] = useLocalStorage("nationalities", [Nationality.CH]);
   const [hasNextPage, setHasNextPage] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
   const { width } = useWindowSize();
@@ -33,7 +33,7 @@ export default function useAddressBook() {
       const page = Math.floor(startIndex / BATCH_SIZE);
       try {
         const usersResponse = await loadUsers({
-          nationalityFilter: nationality,
+          nationalityFilter: nationalities,
           page,
         });
         const loadedUsers = usersResponse?.results ?? [];
@@ -78,7 +78,7 @@ export default function useAddressBook() {
       selectedUser,
       setSelectedUser,
       screenVersion,
-      nationality,
+      nationalities,
     }),
     [
       filteredUsers,
@@ -90,7 +90,7 @@ export default function useAddressBook() {
       filterActive,
       setSelectedUser,
       screenVersion,
-      nationality,
+      nationalities,
     ]
   );
 }
