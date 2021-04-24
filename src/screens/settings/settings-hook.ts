@@ -19,9 +19,14 @@ export default function useSettings() {
     history.push("/");
   });
 
+  const changeNationality = useEventCallback((n: Nationality) => {
+    setNationality(n);
+    history.push("/");
+  });
+
   return {
     nationality,
-    setNationality,
+    changeNationality,
     tourFinished,
     handleRestartAppTutorial,
   };

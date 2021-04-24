@@ -16,7 +16,7 @@ export default function SettingsScreen() {
   const {
     handleRestartAppTutorial,
     nationality,
-    setNationality,
+    changeNationality,
     tourFinished,
   } = useSettings();
   return (
@@ -29,7 +29,7 @@ export default function SettingsScreen() {
         size="small"
         variant="outlined"
         label="Nationality"
-        onChange={(e) => setNationality(e.target.value as Nationality)}
+        onChange={(e) => changeNationality(e.target.value as Nationality)}
       >
         <MenuItem value={Nationality.CH}>
           <ReactCountryFlag

@@ -78,6 +78,7 @@ export default function useAddressBook() {
       selectedUser,
       setSelectedUser,
       screenVersion,
+      nationality,
     }),
     [
       filteredUsers,
@@ -89,6 +90,7 @@ export default function useAddressBook() {
       filterActive,
       setSelectedUser,
       screenVersion,
+      nationality,
     ]
   );
 }
