@@ -35,6 +35,13 @@ export default function SettingsScreen() {
         onChange={(e) => setNationalitiesWrapper(e.target.value as any)}
         SelectProps={{
           multiple: true,
+          MenuProps: {
+            anchorOrigin: {
+              vertical: "bottom",
+              horizontal: "left",
+            },
+            getContentAnchorEl: null,
+          },
           renderValue: (nats) =>
             (nats as Nationality[]).map((nat) => (
               <Chip
