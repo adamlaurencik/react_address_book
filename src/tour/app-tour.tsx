@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import useLocalStorage from "hooks/local-storage-hook";
 import Joyride, { Step, CallBackProps } from "react-joyride";
 import useEventCallback from "use-event-callback";
@@ -8,10 +9,16 @@ const steps: Step[] = [
     title: "Address book table",
     content: (
       <>
-        The table is the main component of the app, it allows you to search
-        through your contacts. <br />
-        By clicking on DETAIL button, you can send your contact an email, call
-        them or see their location.
+        Table displays your contacts. Scroll, to load new contacts. <br />
+        Click on
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ margin: "0px 5px" }}
+        >
+          DETAIL
+        </Button>
+        to send your contact an email, call them, or see their location.
       </>
     ),
     target: "#contact-table",
@@ -47,8 +54,7 @@ const steps: Step[] = [
     title: "Navigate home",
     content: (
       <>
-        To get back to the home page, click on the Address Book App link in the
-        header.
+        To get back to the home page, click on the app name in the left corner.
       </>
     ),
     target: "#home-link",
@@ -71,7 +77,7 @@ export default function AppTour() {
       steps={steps}
       continuous={true}
       tooltipComponent={TourCard}
-      run={!tourFinished}
+      run={tourFinished}
       callback={handleCallback}
     />
   );

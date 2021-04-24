@@ -4,8 +4,24 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  makeStyles,
 } from "@material-ui/core";
 import { TooltipRenderProps } from "react-joyride";
+
+const useTourCardStyles = makeStyles({
+  root: {
+    width: 500,
+    maxWidth: "80vw",
+  },
+  header: {
+    paddingBottom: 0,
+  },
+  actions: {
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+  },
+});
 
 export default function TourCard({
   step,
@@ -14,17 +30,12 @@ export default function TourCard({
   primaryProps,
   isLastStep,
 }: TooltipRenderProps) {
+  const classes = useTourCardStyles();
   return (
-    <Card {...tooltipProps} style={{ maxWidth: "80vw" }}>
-      <CardHeader title={step.title} />
+    <Card {...tooltipProps} className={classes.root}>
+      <CardHeader title={step.title} className={classes.header} />
       <CardContent>{step.content}</CardContent>
-      <CardActions
-        style={{
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "flex-end",
-        }}
-      >
+      <CardActions className={classes.actions}>
         <Button {...backProps}>Back</Button>
         <Button {...primaryProps} variant="contained" color="primary">
           {isLastStep ? "Finish" : "Next"}
